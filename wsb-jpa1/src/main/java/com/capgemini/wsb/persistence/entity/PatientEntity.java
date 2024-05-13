@@ -1,15 +1,19 @@
 package com.capgemini.wsb.persistence.entity;
 
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "PATIENT")
 public class PatientEntity {
 
@@ -34,60 +38,13 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
-	public Long getId() {
-		return id;
-	}
+	@Column(nullable = false)
+	private Integer age;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "patientEntity")
+	private List<VisitEntity> visitEntity;
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPatientNumber() {
-		return patientNumber;
-	}
-
-	public void setPatientNumber(String patientNumber) {
-		this.patientNumber = patientNumber;
-	}
-
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
+	@ManyToMany
+	private List<AddressEntity> addressEntity;
 
 }
